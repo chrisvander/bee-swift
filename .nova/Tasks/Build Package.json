@@ -1,0 +1,10 @@
+{
+  "actions" : {
+    "build" : {
+      "enabled" : true,
+      "script" : "#!\/usr\/local\/bin\/zsh\nsource ~\/.zshrc\ncd src && gomobile bind -target ios -o ..\/dist\/SwiftGreeter.framework"
+    }
+  },
+  "identifier" : "77F625BB-B4C9-42C5-B18A-BB8F2A8FBD70",
+  "openLogOnRun" : "start"
+}
