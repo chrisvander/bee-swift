@@ -1,4 +1,4 @@
-module bee-swift
+module github.com/chrisvander/bee-swift
 
 go 1.16
 

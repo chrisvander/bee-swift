@@ -2,7 +2,7 @@
   "actions" : {
     "run" : {
       "enabled" : true,
-      "script" : "go run src\/swift-bee\/main.go"
+      "script" : "go run src\/bee-swift\/main.go"
     }
   },
   "identifier" : "FC067853-B731-4980-A0FE-B4725D060BE6",
