@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/chrisvander/swift-bee/pkg/beerunner"
+	"github.com/chrisvander/bee-swift/pkg/beerunner"
 )
 
 func main() {
