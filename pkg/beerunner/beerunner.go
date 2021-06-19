@@ -8,6 +8,7 @@ import (
 	
 	"os"
 	"crypto/ecdsa"
+	"path/filepath"
 	"fmt"
 	"os/signal"
 	"syscall"
@@ -15,7 +16,7 @@ import (
 
 	"github.com/ethersphere/bee/pkg/crypto"
 	"github.com/ethersphere/bee/pkg/keystore"
-	memkeystore "github.com/ethersphere/bee/pkg/keystore/mem"
+	filekeystore "github.com/ethersphere/bee/pkg/keystore/file"
 	"github.com/ethersphere/bee/pkg/node"
 	"github.com/ethersphere/bee/pkg/logging"
 	"github.com/ethersphere/bee/pkg/resolver/multiresolver"
@@ -39,7 +40,7 @@ type signerConfig struct {
 
 func StartBee() (err error) {
 	var keystore keystore.Service
-	keystore = memkeystore.New()
+	keystore = filekeystore.New(filepath.Join(".bee", "keys"))
 	var signer crypto.Signer
 	var address swarm.Address
 	var publicKey *ecdsa.PublicKey
@@ -62,7 +63,8 @@ func StartBee() (err error) {
 	libp2pPrivateKey, _, err := keystore.Key("libp2p", password)
 	pssPrivateKey, _, err := keystore.Key("pss", password)
 	
-	// overlayEthAddress, err := signer.EthereumAddress()
+	overlayEthAddress, err := signer.EthereumAddress()
+	logger.Infof("Using ETH address: 0x%x", overlayEthAddress)
 	
 	var resolverCfgs []multiresolver.ConnectionConfig
 	
@@ -105,7 +107,7 @@ func StartBee() (err error) {
 			ResolverConnectionCfgs:     resolverCfgs,
 			GatewayMode:                false,
 			BootnodeMode:               false,
-			SwapEndpoint:               "ws://localhost:8546",
+			SwapEndpoint:               "https://goerli.infura.io/v3/0c02d4ed1bf34d28b4559dde356d7cc0",
 			SwapFactoryAddress:         "",
 			SwapLegacyFactoryAddresses: nil,
 			SwapInitialDeposit:         "10000000000000000",
@@ -123,6 +125,8 @@ func StartBee() (err error) {
 	}
 	
 	if err != nil {
+		logger.Errorf("ERROR: %s", err)
+		logger.Infof("Exiting on error")
 		return err
 	}
 	

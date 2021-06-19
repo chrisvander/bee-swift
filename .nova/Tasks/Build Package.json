@@ -2,7 +2,7 @@
   "actions" : {
     "build" : {
       "enabled" : true,
-      "script" : "#!\/usr\/local\/bin\/zsh\nsource ~\/.zshrc\ncd src && gomobile bind -target ios -o ..\/dist\/BeeSwift.framework"
+      "script" : "#!\/usr\/local\/bin\/zsh\nsource ~\/.zshrc\ncd pkg\/beerunner && gomobile bind -target ios -o ..\/..\/dist\/BeeSwift.framework"
     }
   },
   "identifier" : "77F625BB-B4C9-42C5-B18A-BB8F2A8FBD70",
